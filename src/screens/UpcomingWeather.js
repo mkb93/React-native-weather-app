@@ -1,6 +1,7 @@
 import React from "react"
 import { Text, SafeAreaView, StyleSheet, FlatList, View, StatusBar, ImageBackground } from "react-native"
 import { Feather } from '@expo/vector-icons'
+import ListItem from "../components/ListItem"
 
 
   const DATA = [
@@ -46,21 +47,9 @@ const Empty = () => (
     <Text>Empty</Text>
   </View>
 )
-const Item =(props)=> {
-  const { dt_txt, min, max, condition } = props
-  return (
-    <View style={styles.item}>
-      <Feather name={'sun'} size = {50} color={'white'}/>
-      <Text style={styles.date}>{dt_txt}</Text>
-      <Text style={styles.temp}>{max}</Text>
-      <Text style={styles.temp}>{min}</Text>
-    </View>
-    
-  )
-}
 const UpcomingWeather = () => {
   const renderItem = ({item}) => (
-    <Item condition={item.weather[0].main} dt_txt={item.dt_txt} min={item.main.temp_min} max={item.main.temp_max} />
+    <ListItem condition={item.weather[0].main} dt_txt={item.dt_txt} min={item.main.temp_min} max={item.main.temp_max} />
   )
  return (
   <SafeAreaView style = {styles.container}>
