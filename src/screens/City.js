@@ -1,21 +1,21 @@
 import { StatusBar } from 'expo-status-bar'
 import React from 'react'
 import { SafeAreaView, Text, StyleSheet, ImageBackground, View } from 'react-native'
-import { Feather } from '@expo/vector-icons'
 import IconText from '../components/iconText'
+
 const City = () => {
+  const { container, cityName, cityText, countryName, populationWrapper, populationText, riseSetWrapper, riseSetText, rowLayout, imageLayout } = styles
  return (
-  <SafeAreaView style= {styles.container}>
-    <ImageBackground source={require('../../assets/city-background.jpg')} style={styles.imageLayout}>
-      <Text style={[styles.cityName, styles.cityText]}>London</Text>
-      <Text style={[styles.countryName, styles.cityText]}>UK</Text>
-      <View style={styles.populationWrapper}>
-        <IconText iconName={'user'} iconColor='red' bodyText={'8000'} bodyTextSyles={color: 'red'} />
+  <SafeAreaView style= {container}>
+    <ImageBackground source={require('../../assets/city-background.jpg')} style={imageLayout}>
+      <Text style={[cityName, cityText]}>London</Text>
+      <Text style={[countryName, cityText]}>UK</Text>
+      <View style={[populationWrapper, rowLayout]}>
+        <IconText iconName={'user'} iconColor='red' bodyText={'8000'} bodyTextStyles={populationText} />
       </View>
-      <View style={styles.riseSetWrapper}>
-        <IconText iconName={'sunrise'} iconColor={'white'} bodyText={'10:46:58 am'} bodyTextSyles={styles.riseSetText}/>
-        <Feather name={'sunset'} size={50} color={'white'}/>
-        <Text style={styles.riseSetText}>17:28:15 PM</Text>
+      <View style={[riseSetWrapper, rowLayout]}>
+        <IconText iconName={'sunrise'} iconColor={'white'} bodyText={'10:46:58 am'} bodyTextStyles={riseSetText}/>
+        <IconText iconName={'sunset'} iconColor={'white'} bodyText={'17:28:15 PM'} bodyTextStyles={riseSetText}/>
       </View>
     </ImageBackground>
   </SafeAreaView>
@@ -43,8 +43,6 @@ const styles = StyleSheet.create({
     color: 'white'
   },
   populationWrapper:{
-    flexDirection: 'row',
-    alignItems: 'center',
     justifyContent: 'center',
     marginTop: 30
   },
@@ -54,14 +52,16 @@ const styles = StyleSheet.create({
     color: 'red'
   },
   riseSetWrapper: {
-    flexDirection: 'row',
-    alignItems: 'center',
     justifyContent: 'space-around',
     marginTop: 30
   },
   riseSetText: {
     fontSize: 20,
     color: 'white'
+  },
+  rowLayout: {
+    flexDirection: "row",
+    alignItems: "center"
   }
 })
 export default City
