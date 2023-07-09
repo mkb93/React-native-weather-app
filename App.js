@@ -4,11 +4,18 @@ import Tabs from "./src/components/Tabs"
 import { NavigationContainer } from "@react-navigation/native"
 import * as Location from 'expo-location'
 import {WEATHER_API_KEY } from '@env'
-// api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid={API key}
+import { useGetWeather } from "./src/hooks/useGetWeather"
 
 const App = () => {
-
+const [loading, error, weather]= useGetWeather()
   
+if (weather && weather.list) {
+  return (
+    <NavigationContainer>
+      <Tabs weather={weather}/>
+    </NavigationContainer>
+   )
+}
   if(loading){
     return (
       <View style= {styles.container}>
@@ -16,12 +23,7 @@ const App = () => {
       </View>
     )
   }
-  
- return (
-  <NavigationContainer>
-    <Tabs />
-  </NavigationContainer>
- )
+ 
 }
 
 const styles = StyleSheet.create({

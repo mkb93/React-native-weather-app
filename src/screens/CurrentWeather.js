@@ -4,17 +4,20 @@ import { Feather } from '@expo/vector-icons';
 import RowText from "../components/RowText";
 import { weatherType } from "../utilities/weatherType";
 
-const CurrentWeather = () => {
-  const {wrapper, container, temp, feels, highLowWrapper, bodyWrapper, highLow, description, message} = styles
+const CurrentWeather = ({ weatherData }) => {
+  const { main: { temp, feels_like, temp_max, temp_min}, weather} = weatherData
+  const weatherCondition = weather[0].main
+  console.log(weatherCondition)
+  const {wrapper, container, tempStyles, feels, highLowWrapper, bodyWrapper, highLow, description, message} = styles
   return (
-    <SafeAreaView style={wrapper}>
+    <SafeAreaView style={[wrapper, {backgroundColor: weatherType[weatherCondition].backgroundColor}]}>
     <View style = {container}>
-      <Feather name="sun" size={100} color="black"></Feather>
-      <Text style = {temp}>6</Text>
-      <Text style = {feels}>feels like 5</Text>
-      <RowText containerStyles={highLowWrapper} messageOne={"High: 8"} messageOneStyles= {highLow} messageTwo= {"Low: 6"} messageTwoStyles ={highLow} />
+      <Feather name={weatherType[weatherCondition].icon} size={100} color="white"></Feather>
+      <Text style = {tempStyles}>{temp}</Text>
+      <Text style = {feels}>{`feels like ${feels_like}`}</Text>
+      <RowText containerStyles={highLowWrapper} messageOne={`High: ${temp_max}`} messageOneStyles= {highLow} messageTwo= {`Low: ${temp_min}`} messageTwoStyles ={highLow} />
       </View>
-      <RowText containerStyles={bodyWrapper} messageOne={"Its Sunny"} messageOneStyles= {description} messageTwo= {weatherType['Thunderstorm'].message} messageTwoStyles ={message} />
+      <RowText containerStyles={bodyWrapper} messageOne={weather[0].description} messageOneStyles= {description} messageTwo= {weatherType[weatherCondition].message} messageTwoStyles ={message} />
     </SafeAreaView>
   )
 }
@@ -28,7 +31,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center'
   },
-  temp: {
+  tempStyles: {
     color: 'black',
     fontSize: 48
   },
