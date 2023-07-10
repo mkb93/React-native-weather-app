@@ -37,8 +37,5 @@ export const useGetWeather =() => {
     })()
   }, [lat, lon])
 
-  // if(weather) {
-  //   console.log(weather)
-  // }
  return [loading, error, weather]
 }

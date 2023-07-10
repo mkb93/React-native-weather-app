@@ -6,25 +6,24 @@ import { weatherType } from "../utilities/weatherType";
 
 const CurrentWeather = ({ weatherData }) => {
   const { main: { temp, feels_like, temp_max, temp_min}, weather} = weatherData
-  const weatherCondition = weather[0].main
+  const weatherCondition = weather[0]?.main
   console.log(weatherCondition)
   const {wrapper, container, tempStyles, feels, highLowWrapper, bodyWrapper, highLow, description, message} = styles
   return (
-    <SafeAreaView style={[wrapper, {backgroundColor: weatherType[weatherCondition].backgroundColor}]}>
+    <SafeAreaView style={[wrapper, {backgroundColor: weatherType[weatherCondition]?.backgroundColor}]}>
     <View style = {container}>
-      <Feather name={weatherType[weatherCondition].icon} size={100} color="white"></Feather>
-      <Text style = {tempStyles}>{temp}</Text>
-      <Text style = {feels}>{`feels like ${feels_like}`}</Text>
-      <RowText containerStyles={highLowWrapper} messageOne={`High: ${temp_max}`} messageOneStyles= {highLow} messageTwo= {`Low: ${temp_min}`} messageTwoStyles ={highLow} />
+      <Feather name={weatherType[weatherCondition]?.icon} size={100} color="white"></Feather>
+      <Text style = {tempStyles}>{`${temp}°`}</Text>
+      <Text style = {feels}>{`feels like ${feels_like}°`}</Text>
+      <RowText containerStyles={highLowWrapper} messageOne={`High: ${temp_max}° `} messageOneStyles= {highLow} messageTwo= {`Low: ${temp_min}°`} messageTwoStyles ={highLow} />
       </View>
-      <RowText containerStyles={bodyWrapper} messageOne={weather[0].description} messageOneStyles= {description} messageTwo= {weatherType[weatherCondition].message} messageTwoStyles ={message} />
+      <RowText containerStyles={bodyWrapper} messageOne={weather[0]?.description} messageOneStyles= {description} messageTwo= {weatherType[weatherCondition]?.message} messageTwoStyles ={message} />
     </SafeAreaView>
   )
 }
 const styles = StyleSheet.create({
   wrapper: {
-    flex: 1,
-    backgroundColor: 'pink'
+    flex: 1
   },
   container: {
     flex: 1,
@@ -53,10 +52,10 @@ const styles = StyleSheet.create({
     marginBottom: 40
   },
   description: {
-    fontSize: 48
+    fontSize: 43
   },
   message: {
-    fontSize:30
+    fontSize: 25
   }
 })
 export default CurrentWeather
